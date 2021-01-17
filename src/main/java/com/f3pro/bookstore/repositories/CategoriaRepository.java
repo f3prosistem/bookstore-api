@@ -2,9 +2,10 @@ package com.f3pro.bookstore.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.f3pro.bookstore.domain.Livro;
+
+import com.f3pro.bookstore.domain.Categoria;
 
 @Repository
-public interface CategoriaRepository  extends JpaRepository<Livro, Integer>{
+public interface CategoriaRepository  extends JpaRepository<Categoria, Integer>{
 
 }
