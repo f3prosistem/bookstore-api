@@ -16,7 +16,7 @@ public class ResourceExpectionHandler {
 	public ResponseEntity<StanderError> objectNotFoundException(ObjectNotFoundException e, ServletRequest request) {
 
 		StanderError error = new StanderError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), e.getMessage());
-		
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
