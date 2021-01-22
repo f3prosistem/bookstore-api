@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.f3pro.bookstore.service.exceptions.DataIntegrityViolationException;
 import com.f3pro.bookstore.service.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -20,4 +21,11 @@ public class ResourceExpectionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<StanderError> dataIntegrityViolationException(DataIntegrityViolationException e, ServletRequest request) {
+
+		StanderError error = new StanderError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
 }
