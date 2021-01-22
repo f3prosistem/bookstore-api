@@ -12,22 +12,30 @@ import com.f3pro.bookstore.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
-	@Autowired
-	private CategoriaRepository repository;
+    @Autowired
+    private CategoriaRepository repository;
 
-	public Categoria findById(Integer id) {
-		Optional<Categoria> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não localizado! id: " + id + ", Tipo: " + Categoria.class.getName()));
+    public Categoria findById(Integer id) {
+        Optional<Categoria> obj = repository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não localizado! id: " + id + ", Tipo: " + Categoria.class.getName()));
 
-	}
+    }
 
-	public List<Categoria> findAll(){
-		return repository.findAll();
-	}
+    public List<Categoria> findAll() {
+        return repository.findAll();
+    }
 
-	public Categoria create(Categoria obj){
-		obj.setId(null);
-		return repository.save(obj);
-	}
+    public Categoria create(Categoria obj) {
+        obj.setId(null);
+        return repository.save(obj);
+    }
+
+    public Categoria update(Integer id, Categoria objTDO) {
+        Categoria obj = findById(id);
+        obj.setNome(objTDO.getNome());
+        obj.setDescricao(objTDO.getDescricao());
+        return repository.save(obj);
+
+    }
 }
