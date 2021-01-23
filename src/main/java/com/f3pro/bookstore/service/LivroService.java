@@ -14,6 +14,9 @@ public class LivroService {
     @Autowired
     private LivroRepository livroRepository;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
     public Livro findById(Integer id) {
         Optional<Livro> obj = livroRepository.findById(id);
 
@@ -21,7 +24,14 @@ public class LivroService {
                 "Livro não localizado! id: " + id + ", Tipo: " + Livro.class.getName()));
     }
 
-    public List<Livro> findAll() {
-        return livroRepository.findAll();
+    public List<Livro> findAll(Integer id_cat) {
+        categoriaService.findById(id_cat);
+        return livroRepository.findAllByCategoria(id_cat);
+    }
+
+
+    public Livro create(Livro obj) {
+        obj.setId(null);
+        return livroRepository.save(obj);
     }
 }
